@@ -1,0 +1,112 @@
+---
+title: Code scaffolding
+description: Scaffold new commands and queries using the built-in ca-usecase template.
+sidebar:
+  order: 4
+---
+
+import { FileTree } from '@astrojs/starlight/components';
+
+The template includes a `ca-usecase` sub-template that scaffolds the files needed for a new command or query — handler, validator, and any required models — following the established vertical slice structure.
+
+## Create a command
+
+Commands represent write operations that change state. The following scaffolds a `CreateTodoList` command that returns an `int` (typically the new entity's ID):
+
+```bash
+cd src/Application
+dotnet new ca-usecase --name CreateTodoList --feature-name TodoLists --usecase-type command --return-type int
+```
+
+This generates:
+
+<FileTree>
+
+- src/
+  - Application/
+    - TodoLists/
+      - Commands/
+        - CreateTodoList/
+          - CreateTodoListCommand.cs (the command record and its return type)
+          - CreateTodoListCommandHandler.cs (handler implementing the use case logic)
+          - CreateTodoListCommandValidator.cs (FluentValidation rules for the command)
+
+</FileTree>
+
+## Create a query
+
+Queries represent read operations that return data without modifying state. The following scaffolds a `GetTodos` query that returns a `TodosVm` view model:
+
+```bash
+dotnet new ca-usecase --name GetTodos --feature-name TodoLists --usecase-type query --return-type TodosVm
+```
+
+Shorthand flags work too:
+
+```bash
+dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
+```
+
+## Implementing your use case
+
+After scaffolding, complete the implementation:
+
+1. Implement the handler logic in `*CommandHandler.cs` or `*QueryHandler.cs`
+2. Add validation rules in `*Validator.cs`
+3. Add a new endpoint class in `src/Web/Endpoints/` implementing `IEndpointGroup` — it will be discovered and registered automatically
+
+## Options
+
+All options can be passed using their full name or shorthand flag. The `--name` and `--feature-name` options together determine where the files are placed and how they are named.
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Short</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="white-space:nowrap">`--name`</td>
+      <td>`-n`</td>
+      <td>Name of the use case (e.g. `CreateTodoList`)</td>
+    </tr>
+    <tr>
+      <td style="white-space:nowrap">`--feature-name`</td>
+      <td>`-fn`</td>
+      <td>Feature folder to place it in (e.g. `TodoLists`)</td>
+    </tr>
+    <tr>
+      <td style="white-space:nowrap">`--usecase-type`</td>
+      <td>`-ut`</td>
+      <td>`command` or `query`</td>
+    </tr>
+    <tr>
+      <td style="white-space:nowrap">`--return-type`</td>
+      <td>`-rt`</td>
+      <td>Return type (e.g. `int`, `Guid`, `TodosVm`)</td>
+    </tr>
+    <tr>
+      <td style="white-space:nowrap">`--parent-namespace`</td>
+      <td>`-pn`</td>
+      <td>Parent namespace when creating a use case in a subfolder (e.g. `Accounting` when in `src/Application/Accounting`)</td>
+    </tr>
+  </tbody>
+</table>
+
+To see all available options:
+
+```bash
+dotnet new ca-usecase --help
+```
+
+## Template not found?
+
+If you see *"No templates or subcommands found matching: 'ca-usecase'"*, install or update the template:
+
+```bash
+dotnet new install Clean.Architecture.Solution.Template
+```
+

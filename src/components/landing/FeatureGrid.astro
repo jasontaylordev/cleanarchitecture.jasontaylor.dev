@@ -1,0 +1,144 @@
+---
+const features = [
+  {
+    title: 'Multiple UI Options',
+    description: 'Choose Angular or React for a full-stack application, or go API-only for a lightweight backend. Authentication is pre-configured for each option, and TypeScript API clients are auto-generated for Angular and React frontends.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="m9 8 3 3-3 3"/><path d="M13 14h3"/></svg>`,
+  },
+  {
+    title: 'Multiple Database Options',
+    description: 'Choose SQL Server, PostgreSQL, or SQLite at project creation. Entity Framework Core handles database initialisation out of the box — swap databases without changing application code.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>`,
+  },
+  {
+    title: 'Structured Use Cases',
+    description: 'Every feature lives in its own folder with a command or query, a validator, and a handler — no bloated service classes. Built around vertical slices, the included samples show exactly how to structure new use cases from day one.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>`,
+  },
+  {
+    title: 'Behaviours, Not Boilerplate',
+    description: 'Every request is automatically validated, authorised, logged, and performance-monitored through a pre-wired pipeline of behaviours. Validation failures return consistent Problem Details responses — no manual wiring required.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>`,
+  },
+  {
+    title: 'Automated Tests (Zero Setup)',
+    description: 'Unit, integration, functional, and acceptance tests are included and ready to run. Functional tests hit a real database with Respawn for isolation; acceptance tests drive the full stack with Playwright and Aspire. CI runs everything from day one.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
+  },
+  {
+    title: 'Aspire Orchestration',
+    description: 'Press F5 to start the entire stack — API, database, and frontend boot together, orchestrated by Aspire. Deploy anywhere with consistent deployments, and built-in OpenTelemetry delivers logs, traces, and metrics with zero setup.',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>`,
+  },
+];
+---
+<section class="features" id="features">
+  <div class="features-inner">
+    <div class="features-header">
+      <h2 class="features-title">Everything you need to ship</h2>
+      <p class="features-subtitle">
+        Stop configuring boilerplate. Start building features.
+      </p>
+    </div>
+    <div class="features-grid">
+      {features.map(feature => (
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true" set:html={feature.icon} />
+          <h3 class="feature-card-title">{feature.title}</h3>
+          <p class="feature-card-desc">{feature.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    padding: 6rem 1.5rem;
+  }
+
+  .features-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .features-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .features-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .features-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .feature-card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+
+  .feature-card:hover {
+    border-color: var(--border-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px var(--brand-glow);
+  }
+
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--brand-glow);
+    border-radius: var(--radius-sm);
+    color: var(--brand);
+    flex-shrink: 0;
+  }
+
+  .feature-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .feature-card-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 900px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

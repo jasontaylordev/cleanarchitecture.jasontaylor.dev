@@ -1,0 +1,107 @@
+---
+title: Your first project
+description: Create and run your first Clean Architecture solution using the dotnet CLI.
+sidebar:
+  order: 3
+---
+
+import { FileTree } from '@astrojs/starlight/components';
+
+## Create a new solution
+
+Use `dotnet new ca-sln` to scaffold a new solution. Two key options control what gets generated:
+
+| Option | Flag | Choices | Default |
+|--------|------|---------|---------|
+| Frontend | `-cf`, `--client-framework` | `angular`, `react`, `none` | `angular` |
+| Database | `-db`, `--database` | `sqlite`, `sqlserver`, `postgresql` | `sqlite` |
+
+For example, to create a React + PostgreSQL solution:
+
+```bash
+dotnet new ca-sln -cf react -db postgresql --output MyApp
+```
+
+Or an API-only solution with SQLite:
+
+```bash
+dotnet new ca-sln -cf none --output MyApp
+```
+
+## Explore the generated structure
+
+After scaffolding, your solution looks like this:
+
+<FileTree>
+
+- MyApp/
+  - src/
+    - AppHost/ (.NET Aspire host — orchestrates all services)
+    - ServiceDefaults/ (shared Aspire configuration: telemetry, health checks)
+    - Domain/ (entities, value objects, domain events)
+    - Application/ (use cases, CQRS commands and queries)
+    - Infrastructure/ (database, external services, EF Core)
+    - Shared/ (shared kernel types used across layers)
+    - Web/ (ASP.NET Core API)
+      - ClientApp/ (Angular or React frontend, if selected)
+  - tests/
+    - Application.FunctionalTests/ (end-to-end tests against a real database)
+    - Application.UnitTests/ (unit tests for application layer logic)
+    - Domain.UnitTests/ (unit tests for domain logic)
+    - Infrastructure.IntegrationTests/ (integration tests for infrastructure)
+    - Web.AcceptanceTests/ (Playwright UI tests, if a frontend was selected)
+  - MyApp.slnx
+
+</FileTree>
+
+## Build
+
+From the solution root, build all projects:
+
+```bash
+dotnet build
+```
+
+Fix any errors before proceeding — the template should build cleanly out of the box.
+
+## Run the application
+
+The application is orchestrated by [Aspire](/docs/features/aspire/). Run the `AppHost` project to start the entire stack — API, database, and frontend (if applicable):
+
+```bash
+dotnet run --project src/AppHost
+```
+
+The Aspire dashboard opens automatically, showing all running services, logs, traces, and direct links to the API. On first run with Angular or React, `npm install` runs automatically — this takes a moment.
+
+## Explore the API
+
+Once running, open the Scalar UI (linked directly from the Aspire dashboard) or navigate to:
+
+```
+https://localhost:<port>/scalar
+```
+
+The template includes a sample **TodoList** feature (create lists, add items, mark complete) that demonstrates the full CQRS/Clean Architecture pattern end-to-end.
+
+## Database
+
+By default, the template uses **SQLite**. On startup, the database is automatically deleted, recreated, and seeded — no migrations or manual setup needed during early development. See [Multiple Database Options](/docs/features/multiple-database-options/) to switch to PostgreSQL or SQL Server.
+
+## Run the tests
+
+Run the full test suite from the solution root:
+
+```bash
+dotnet test
+```
+
+All tests should pass on a freshly scaffolded solution.
+
+See [Automated Tests](/docs/features/automated-tests/) for details on the full test suite.
+
+## Next steps
+
+- Read the [Architecture Overview](/docs/architecture/) to understand the layer structure
+- Learn about [Code Scaffolding](/docs/getting-started/code-scaffolding/) to add your own use cases
+- See [Multiple Database Options](/docs/features/multiple-database-options/) to switch to PostgreSQL or SQL Server

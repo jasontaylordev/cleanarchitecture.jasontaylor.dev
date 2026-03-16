@@ -1,0 +1,100 @@
+/* Dark mode */
+:root {
+  --sl-color-accent-low: rgba(139, 92, 246, 0.12);
+  --sl-color-accent: #8b5cf6;
+  --sl-color-accent-high: #c4b5fd;
+  --sl-color-white: #f8fafc;
+  --sl-color-gray-1: #f1f5f9;
+  --sl-color-gray-2: #cbd5e1;
+  --sl-color-gray-3: #94a3b8;
+  --sl-color-gray-4: #475569;
+  --sl-color-gray-5: #1e293b;
+  --sl-color-gray-6: #0f172a;
+  --sl-color-black: #020817;
+  --sl-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Light mode */
+:root[data-theme='light'] {
+  --sl-color-accent-low: rgba(124, 58, 237, 0.1);
+  --sl-color-accent: #7c3aed;
+  --sl-color-accent-high: #5b21b6;
+  --sl-color-white: #0f172a;
+  --sl-color-gray-1: #1e293b;
+  --sl-color-gray-2: #334155;
+  --sl-color-gray-3: #64748b;
+  --sl-color-gray-4: #94a3b8;
+  --sl-color-gray-5: #e2e8f0;
+  --sl-color-gray-6: #f8fafc;
+  --sl-color-black: #ffffff;
+}
+
+/* Themed scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sl-color-gray-5) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sl-color-gray-5);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sl-color-gray-4);
+}
+
+/* Match header background to landing page */
+header.header {
+  background: rgba(2, 8, 23, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+:root[data-theme='light'] header.header {
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Match site title style to landing page header */
+.site-title {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--sl-color-white);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.site-title span {
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+/* Centre images in doc content */
+.sl-markdown-content img {
+  display: block;
+  margin-inline: auto;
+}
+
+/* Active sidebar item — dark mode needs dark text on light purple background */
+:root:not([data-theme='light']) a[aria-current='page'],
+:root:not([data-theme='light']) a[aria-current='page']:hover,
+:root:not([data-theme='light']) a[aria-current='page'] span,
+:root:not([data-theme='light']) a[aria-current='page']:hover span {
+  color: #0f172a !important;
+  font-weight: 600;
+}

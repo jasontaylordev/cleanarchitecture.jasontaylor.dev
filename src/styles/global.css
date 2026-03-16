@@ -1,0 +1,104 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Scrollbar — matches docs page */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1e293b transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+/* ============================================================
+   LANDING PAGE DESIGN TOKENS
+   ============================================================ */
+
+.landing-page {
+  --brand: #8b5cf6;
+  --brand-dark: #7c3aed;
+  --brand-glow: rgba(139, 92, 246, 0.12);
+  --brand-glow-strong: rgba(139, 92, 246, 0.25);
+  --surface-0: #020817;
+  --surface-1: #0f172a;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(139, 92, 246, 0.3);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --radius: 12px;
+  --radius-sm: 8px;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--surface-0);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.landing-page *,
+.landing-page *::before,
+.landing-page *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-page a {
+  text-decoration: none;
+}
+
+.landing-page a:not(.btn):not(.nav-link) {
+  color: inherit;
+}
+
+.landing-page .site-footer .footer-tagline a,
+.landing-page .site-footer .footer-bottom a {
+  color: #94a3b8;
+}
+
+.landing-page img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ============================================================
+   LANDING PAGE — LIGHT MODE
+   ============================================================ */
+[data-theme="light"] .landing-page {
+  --brand: #7c3aed;
+  --brand-dark: #6d28d9;
+  --brand-glow: rgba(124, 58, 237, 0.1);
+  --brand-glow-strong: rgba(124, 58, 237, 0.18);
+  --surface-0: #ffffff;
+  --surface-1: #f8fafc;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-accent: rgba(124, 58, 237, 0.3);
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #94a3b8;
+
+  background-color: var(--surface-0);
+  color: var(--text-primary);
+}

@@ -1,0 +1,105 @@
+---
+function formatNum(n: number): string {
+  if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+  return n.toString();
+}
+
+let stars = '19.8k';
+let forks = '4.2k';
+let downloads = '500k+';
+
+try {
+  const ghRes = await fetch('https://api.github.com/repos/jasontaylordev/CleanArchitecture', {
+    headers: { 'Accept': 'application/vnd.github.v3+json' }
+  });
+  if (ghRes.ok) {
+    const gh = await ghRes.json();
+    stars = formatNum(gh.stargazers_count);
+    forks = formatNum(gh.forks_count);
+  }
+} catch {}
+
+try {
+  const nugetRes = await fetch('https://azuresearch-usnc.nuget.org/query?q=packageid:Clean.Architecture.Solution.Template&prerelease=false');
+  if (nugetRes.ok) {
+    const nuget = await nugetRes.json();
+    const pkg = nuget.data?.[0];
+    if (pkg) downloads = formatNum(pkg.totalDownloads);
+  }
+} catch {}
+
+---
+<section class="social-proof" aria-label="Project statistics">
+  <div class="social-proof-inner">
+    <div class="stat-item">
+      <svg class="stat-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span class="stat-value">{stars}</span>
+      <span class="stat-label">GitHub Stars</span>
+    </div>
+    <div class="stat-item">
+      <svg class="stat-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><line x1="12" y1="12" x2="12" y2="15"/></svg>
+      <span class="stat-value">{forks}</span>
+      <span class="stat-label">GitHub Forks</span>
+    </div>
+    <div class="stat-item">
+      <svg class="stat-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span class="stat-value">{downloads}</span>
+      <span class="stat-label">NuGet Downloads</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .social-proof {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-1);
+    padding: 2.5rem 1.5rem;
+  }
+
+  .social-proof-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .stat-icon {
+    width: 26px;
+    height: 26px;
+    color: var(--brand);
+    margin-bottom: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .stat-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-top: 0.125rem;
+  }
+
+  @media (max-width: 600px) {
+    .social-proof-inner {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/shared/SiteHeader.astro';
+import SiteFooter from '../components/shared/SiteFooter.astro';
+import Hero from '../components/landing/Hero.astro';
+import SocialProof from '../components/landing/SocialProof.astro';
+import FeatureGrid from '../components/landing/FeatureGrid.astro';
+import CodeDemo from '../components/landing/CodeDemo.astro';
+import LandingCTA from '../components/landing/LandingCTA.astro';
+---
+<!doctype html>
+<html lang="en" style="overflow-y: scroll">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Clean Architecture Solution Template for ASP.NET Core. 19.8k stars. Build production-ready enterprise apps with CQRS, EF Core 10, Angular or React, and built-in Azure deployment."
+    />
+    <meta property="og:title" content="Clean Architecture Solution Template" />
+    <meta
+      property="og:description"
+      content="The simplest way to build enterprise .NET applications. CQRS, EF Core 10, Angular/React, Azure deployment."
+    />
+    <meta property="og:url" content="https://cleanarchitecture.jasontaylor.dev/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Clean Architecture Solution Template</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="canonical" href="https://cleanarchitecture.jasontaylor.dev/" />
+    <!-- Apply theme before paint to prevent flash -->
+    <script is:inline>
+      (function () {
+        var stored = localStorage.getItem('starlight-theme');
+        var theme = stored === 'light' ? 'light'
+          : stored === 'dark' ? 'dark'
+          : matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body class="landing-page">
+    <SiteHeader />
+    <main>
+      <Hero />
+      <SocialProof />
+      <FeatureGrid />
+      <CodeDemo />
+      <LandingCTA />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

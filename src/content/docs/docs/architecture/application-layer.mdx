@@ -1,0 +1,177 @@
+---
+title: Application layer
+description: How features are organised as vertical slices, with use cases, pipeline behaviours, and scaffolding.
+sidebar:
+  order: 3
+---
+
+import { FileTree } from '@astrojs/starlight/components';
+
+The Application layer orchestrates use cases. It depends on Domain and defines interfaces that Infrastructure must implement. It has no knowledge of HTTP, databases, or the file system — it works through abstractions.
+
+## Vertical slices
+
+Each feature is a folder. Each use case inside that feature is its own sub-folder containing everything it needs — the request, the handler, and (for operations that mutate state) a validator. Nothing is shared across use cases unless it genuinely belongs to both.
+
+<FileTree>
+
+- Application/
+  - TodoLists/
+    - Commands/
+      - CreateTodoList/
+        - CreateTodoListCommand.cs
+        - CreateTodoListCommandHandler.cs
+        - CreateTodoListCommandValidator.cs
+      - DeleteTodoList/
+        - ...
+    - Queries/
+      - GetTodos/
+        - GetTodosQuery.cs
+        - GetTodosQueryHandler.cs
+        - TodoListDto.cs
+      - ...
+
+</FileTree>
+
+Adding a new feature means adding a new folder. There are no service classes to bloat over time.
+
+## Use cases that mutate state
+
+Operations that change data implement `IRequest<TResponse>`:
+
+```csharp
+public record CreateTodoListCommand : IRequest<int>
+{
+    public string? Title { get; init; }
+}
+
+public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListCommand, int>
+{
+    private readonly IApplicationDbContext _context;
+
+    public CreateTodoListCommandHandler(IApplicationDbContext context)
+        => _context = context;
+
+    public async Task<int> Handle(CreateTodoListCommand request, CancellationToken ct)
+    {
+        var entity = new TodoList { Title = request.Title };
+        _context.TodoLists.Add(entity);
+        await _context.SaveChangesAsync(ct);
+        return entity.Id;
+    }
+}
+```
+
+## Use cases that read data
+
+Read operations return DTOs and never modify state:
+
+```csharp
+[Authorize]
+public record GetTodosQuery : IRequest<TodosVm>;
+
+public class GetTodosQueryHandler : IRequestHandler<GetTodosQuery, TodosVm>
+{
+    private readonly IApplicationDbContext _context;
+    private readonly IMapper _mapper;
+
+    public GetTodosQueryHandler(IApplicationDbContext context, IMapper mapper)
+    {
+        _context = context;
+        _mapper = mapper;
+    }
+
+    public async Task<TodosVm> Handle(GetTodosQuery request, CancellationToken ct)
+    {
+        return new TodosVm
+        {
+            PriorityLevels = Enum.GetValues(typeof(PriorityLevel))
+                .Cast<PriorityLevel>()
+                .Select(p => new LookupDto { Id = (int)p, Title = p.ToString() })
+                .ToList(),
+
+            Lists = await _context.TodoLists
+                .AsNoTracking()
+                .ProjectTo<TodoListDto>(_mapper.ConfigurationProvider)
+                .OrderBy(t => t.Title)
+                .ToListAsync(ct)
+        };
+    }
+}
+```
+
+## Interfaces & abstractions
+
+The Application layer defines interfaces for everything it needs from the outside world. Infrastructure provides the implementations — Application never references Infrastructure directly.
+
+The most important is `IApplicationDbContext`, which gives handlers access to the database without coupling them to EF Core (see [ADR-001](https://github.com/jasontaylordev/CleanArchitecture/wiki/ADR-001-Use-EFCore-In-Application-Layer)):
+
+```csharp
+public interface IApplicationDbContext
+{
+    DbSet<TodoList> TodoLists { get; }
+    DbSet<TodoItem> TodoItems { get; }
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+}
+```
+
+Other interfaces follow the same pattern — `IIdentityService`, `IUser` — all defined in Application, implemented in Infrastructure or Web.
+
+## Domain event handlers
+
+Domain event handlers live in the Application layer and respond to events raised by the Domain. They are invoked by MediatR after `SaveChangesAsync` commits the transaction:
+
+```csharp
+public class TodoItemCompletedEventHandler : INotificationHandler<TodoItemCompletedEvent>
+{
+    public Task Handle(TodoItemCompletedEvent notification, CancellationToken ct)
+    {
+        // send notification, update read model, trigger follow-on workflow, etc.
+        return Task.CompletedTask;
+    }
+}
+```
+
+This keeps side effects out of the domain model and out of command handlers — each handler has a single, focused responsibility.
+
+## Pipeline behaviours
+
+Pipeline behaviours wrap every command and query. They run in registration order before (and after) the handler:
+
+| Behaviour | Purpose |
+|-----------|---------|
+| `LoggingBehaviour` | Logs the request name, user ID, and username for every request (runs as a pre-processor) |
+| `UnhandledExceptionBehaviour` | Logs unhandled exceptions before re-throwing |
+| `AuthorizationBehaviour` | Checks `[Authorize]` attributes |
+| `ValidationBehaviour` | Runs all FluentValidation validators; throws if any fail |
+| `PerformanceBehaviour` | Logs a warning for requests exceeding 500ms |
+
+See [Behaviours, not boilerplate](/docs/features/pipeline-behaviours/) for full details.
+
+## DI registration
+
+Application registers its own services via an extension method called from `Program.cs`:
+
+```csharp
+public static void AddApplicationServices(this IHostApplicationBuilder builder)
+{
+    builder.Services.AddAutoMapper(cfg =>
+        cfg.AddMaps(Assembly.GetExecutingAssembly()));
+
+    builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+    builder.Services.AddMediatR(cfg =>
+    {
+        cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        cfg.AddOpenRequestPreProcessor(typeof(LoggingBehaviour<>));
+        cfg.AddOpenBehavior(typeof(UnhandledExceptionBehaviour<,>));
+        cfg.AddOpenBehavior(typeof(AuthorizationBehaviour<,>));
+        cfg.AddOpenBehavior(typeof(ValidationBehaviour<,>));
+        cfg.AddOpenBehavior(typeof(PerformanceBehaviour<,>));
+    });
+}
+```
+
+## Dependencies
+
+The Application layer depends only on **Domain**. It must not reference Infrastructure or Web — doing so would invert the dependency direction and break the architecture. Infrastructure and Web depend on Application, never the other way around.

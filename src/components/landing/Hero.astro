@@ -1,0 +1,249 @@
+---
+---
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <h1 class="hero-title">
+      The simplest way to build<br/>
+      <span class="hero-title-accent">enterprise .NET applications</span>
+    </h1>
+    <p class="hero-subtitle">
+      A production-ready Clean Architecture solution template built with ASP.NET Core Minimal API, Entity Framework Core, and Aspire. Includes a Web API backend with an optional Angular or React frontend.
+    </p>
+    <div class="hero-actions">
+      <a href="/docs/getting-started/" class="btn btn--primary">
+        Get Started
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a
+        href="https://github.com/jasontaylordev/CleanArchitecture"
+        class="btn btn--secondary"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+    <div class="hero-install">
+      <span class="install-label">Install</span>
+      <code class="install-code">dotnet new install Clean.Architecture.Solution.Template</code>
+      <button class="copy-btn" aria-label="Copy install command" title="Copy to clipboard">
+        <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 6rem 1.5rem 4rem;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse at center, var(--brand-glow-strong) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.375rem 0.875rem;
+    border-radius: 999px;
+    background: var(--brand-glow);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #c4b5fd;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 5vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+  }
+
+  .hero-title-accent {
+    background: linear-gradient(135deg, var(--brand), #c4b5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    max-width: 600px;
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 0.875rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn--primary {
+    background: var(--brand);
+    color: #fff;
+    box-shadow: 0 0 24px var(--brand-glow-strong);
+  }
+
+  .btn--primary:hover {
+    background: var(--brand-dark);
+    box-shadow: 0 0 32px rgba(139, 92, 246, 0.45);
+    transform: translateY(-1px);
+  }
+
+  .btn--secondary {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+
+  .btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+  }
+
+  .hero-install {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 1.25rem;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-top: 0.5rem;
+    font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+  }
+
+  .install-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .install-code {
+    color: #c4b5fd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: color 0.2s;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .copy-btn:hover {
+    color: var(--text-primary);
+  }
+
+  .copy-btn .check-icon {
+    display: none;
+    color: #4ade80;
+  }
+
+  .copy-btn.copied .copy-icon { display: none; }
+  .copy-btn.copied .check-icon { display: block; }
+
+  @media (max-width: 640px) {
+    .hero-install {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.375rem;
+    }
+
+    .install-code {
+      font-size: 0.75rem;
+    }
+  }
+
+  /* Light mode overrides */
+  :global([data-theme="light"]) .hero-badge {
+    color: #6d28d9;
+    border-color: rgba(109, 40, 217, 0.25);
+  }
+
+  :global([data-theme="light"]) .btn--secondary {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+
+  :global([data-theme="light"]) .btn--secondary:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+
+  :global([data-theme="light"]) .install-code {
+    color: #6d28d9;
+  }
+</style>
+
+<script>
+  const btn = document.querySelector('.hero-install .copy-btn');
+  btn?.addEventListener('click', async () => {
+    await navigator.clipboard.writeText('dotnet new install Clean.Architecture.Solution.Template');
+    btn.classList.add('copied');
+    setTimeout(() => btn.classList.remove('copied'), 2000);
+  });
+</script>

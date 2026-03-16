@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <!-- Outer ring: Web -->
+  <circle cx="16" cy="16" r="15" stroke="#3b82f6" stroke-width="1.5" fill="none" opacity="0.4"/>
+  <!-- Middle ring: Infrastructure -->
+  <circle cx="16" cy="16" r="11" stroke="#3b82f6" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <!-- Inner ring: Application -->
+  <circle cx="16" cy="16" r="7" stroke="#3b82f6" stroke-width="1.5" fill="none" opacity="0.8"/>
+  <!-- Core: Domain -->
+  <circle cx="16" cy="16" r="3.5" fill="#3b82f6"/>
+</svg>
