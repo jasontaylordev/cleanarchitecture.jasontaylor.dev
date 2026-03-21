@@ -30,6 +30,7 @@ customCss: ['./src/styles/starlight.css'],
             { label: 'Installation', slug: 'docs/getting-started/installation' },
             { label: 'Your first project', slug: 'docs/getting-started/first-project' },
             { label: 'Code scaffolding', slug: 'docs/getting-started/code-scaffolding' },
+            { label: 'Deployment', slug: 'docs/getting-started/deployment' },
           ],
         },
         {
