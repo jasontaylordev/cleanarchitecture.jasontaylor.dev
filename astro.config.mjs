@@ -6,6 +6,17 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Clean Architecture Solution Template',
+      head: [
+        {
+          tag: 'script',
+          attrs: {
+            defer: true,
+            src: 'https://unpkg.com/@tinybirdco/flock.js',
+            'data-host': 'https://api.ap-southeast-2.aws.tinybird.co',
+            'data-token': 'p.eyJ1IjogIjU3MTczNmM4LTQ1OWQtNDcxYy05MDliLTE4NWY5YzQ1ZmIwMyIsICJpZCI6ICI4M2Q5YzY5ZS1iOWUyLTQ1OTMtOTlmYy01MGVhMzA3MmI1YWUiLCAiaG9zdCI6ICJhd3MtYXAtc291dGhlYXN0LTIifQ.psTglbyiskfoBIEPlz-YXeJD9jyW7lWIbNlE-fakSFY',
+          },
+        },
+      ],
       defaultLocale: 'root',
       locales: {
         root: {
