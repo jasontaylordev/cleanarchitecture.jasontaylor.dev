@@ -8,7 +8,7 @@ sidebar:
 The template supports three application types. Choose the one that fits your project at creation time:
 
 ```bash
-# Angular 21
+# Angular 22
 dotnet new ca-sln --client-framework Angular
 
 # React 19

@@ -16,6 +16,8 @@ The SQLite option is not currently supported for this deployment approach. Use P
 - [Azure Developer CLI (azd)](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd)
 - [Entity Framework Core tools](https://learn.microsoft.com/en-us/ef/core/cli/dotnet)
 
+If you're working in the solution's [Dev Container](/docs/features/dev-container/), azd is already installed.
+
 ## Create and prepare the solution
 
 Create a new solution:

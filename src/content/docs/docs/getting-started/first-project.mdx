@@ -9,10 +9,11 @@ import { FileTree } from '@astrojs/starlight/components';
 
 ## Create a new solution
 
-Use `dotnet new ca-sln` to scaffold a new solution. Two key options control what gets generated:
+Use `dotnet new ca-sln` to scaffold a new solution. Three options control what gets generated:
 
 | Option | Flag | Choices | Default |
 |--------|------|---------|---------|
+| Target framework | `-f`, `--framework` | `net10.0`, `net11.0` | `net10.0` |
 | Frontend | `-cf`, `--client-framework` | `angular`, `react`, `none` | `angular` |
 | Database | `-db`, `--database` | `sqlite`, `sqlserver`, `postgresql` | `sqlite` |
 
@@ -28,6 +29,14 @@ Or an API-only solution with SQLite:
 dotnet new ca-sln -cf none --output MyApp
 ```
 
+Or an Angular + SQL Server solution on .NET 11:
+
+```bash
+dotnet new ca-sln -f net11.0 -cf angular -db sqlserver --output MyApp
+```
+
+.NET 10 (LTS) is the default. Both .NET 10 and .NET 11 are supported until November 2028.
+
 ## Explore the generated structure
 
 After scaffolding, your solution looks like this:
@@ -35,6 +44,7 @@ After scaffolding, your solution looks like this:
 <FileTree>
 
 - MyApp/
+  - .devcontainer/ (Dev Container configuration)
   - src/
     - AppHost/ (.NET Aspire host — orchestrates all services)
     - ServiceDefaults/ (shared Aspire configuration: telemetry, health checks)
@@ -55,6 +65,8 @@ After scaffolding, your solution looks like this:
 </FileTree>
 
 ## Build
+
+Prefer not to install anything locally? Open the solution in the included [Dev Container](/docs/features/dev-container/) instead.
 
 From the solution root, build all projects:
 
