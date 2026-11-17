@@ -88,6 +88,8 @@ Client generation runs automatically as a `pre` hook before `start` and `build` 
 "generate-api": "nswag run /runtime:Net100"
 ```
 
+The NSwag runtime matches the solution's target framework: `Net100` for .NET 10 solutions and `Net110` for .NET 11 solutions, so client generation only needs the .NET SDK you already have.
+
 To regenerate manually after an API change without starting the dev server:
 
 ```bash

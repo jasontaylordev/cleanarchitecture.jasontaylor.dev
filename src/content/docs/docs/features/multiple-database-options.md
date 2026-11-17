@@ -32,6 +32,10 @@ SQL Server uses the [Aspire SQL Server hosting integration](https://aspire.dev/i
 
 PostgreSQL uses the [Aspire PostgreSQL hosting integration](https://aspire.dev/integrations/databases/postgres/postgres-get-started/) (`Aspire.Hosting.PostgreSQL`). Aspire pulls the PostgreSQL container image, manages its lifecycle, and injects the connection string into the Web project automatically.
 
+:::note
+For .NET 11 solutions, PostgreSQL uses a release candidate of the Npgsql EF Core provider (`11.0.0-rc.3`) until Npgsql 11.0 is released. The build shows NU1608 package version warnings until then; they're expected and don't affect the solution.
+:::
+
 ## Database initialisation
 
 See [Infrastructure layer](/docs/architecture/infrastructure-layer/) for details on how the database is initialised, seeded, and how to leverage EF Core migrations for production.
