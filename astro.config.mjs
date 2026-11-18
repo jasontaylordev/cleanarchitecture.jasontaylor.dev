@@ -9,7 +9,7 @@ export default defineConfig({
       head: [
         {
           tag: 'meta',
-          attrs: { property: 'og:image', content: 'https://cleanarchitecture.jasontaylor.dev/og.png' },
+          attrs: { property: 'og:image', content: 'https://cleanarchitecture.jasontaylor.dev/og-v2.png' },
         },
         {
           tag: 'meta',
@@ -21,7 +21,7 @@ export default defineConfig({
         },
         {
           tag: 'meta',
-          attrs: { name: 'twitter:image', content: 'https://cleanarchitecture.jasontaylor.dev/og.png' },
+          attrs: { name: 'twitter:image', content: 'https://cleanarchitecture.jasontaylor.dev/og-v2.png' },
         },
         {
           tag: 'script',
