@@ -8,6 +8,22 @@ export default defineConfig({
       title: 'Clean Architecture Solution Template',
       head: [
         {
+          tag: 'meta',
+          attrs: { property: 'og:image', content: 'https://cleanarchitecture.jasontaylor.dev/og.png' },
+        },
+        {
+          tag: 'meta',
+          attrs: { property: 'og:image:width', content: '1200' },
+        },
+        {
+          tag: 'meta',
+          attrs: { property: 'og:image:height', content: '630' },
+        },
+        {
+          tag: 'meta',
+          attrs: { name: 'twitter:image', content: 'https://cleanarchitecture.jasontaylor.dev/og.png' },
+        },
+        {
           tag: 'script',
           attrs: {
             defer: true,
